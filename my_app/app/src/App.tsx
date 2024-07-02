@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import noteService from './services/notes'
 import './App.css'
-import Note from './Components/Note'
+import axios from 'axios'
 function Apps() {
   const [text, setText] = useState('');
   const [status, setStatus] = useState('typing')
@@ -280,10 +281,31 @@ const AppOfExercise = () => {
   )
 }
 
-const AppPart2a = (props)=>{
-   const [notes, setNotes] = useState(props.notes)
+const Note =({note, toggleImportance})=>{
+  const label = note.important ? 'make not important' : 'make important';
+  return(
+    <li key={note.id}>
+      {note.content}
+      <button onClick={toggleImportance}>{label}</button>
+    </li>
+  )
+}
+
+const Appaaaa = ()=>{
+   const [notes , setNotes] = useState([])
+
    const [newNote, setNewNote] = useState('a new Note')
    const [showAll , setShowAll] = useState(true)
+
+   useEffect(()=>{
+    noteService
+      .getAll()
+      .then(initialNotes =>{
+        setNotes(initialNotes)
+      })
+   }, [])
+
+   
 
    const notesToShow = showAll ? notes : notes.filter(note => note.important === true);
 
@@ -292,16 +314,40 @@ const AppPart2a = (props)=>{
       const noteObject = {
         content: newNote,
         important: Math.random < 0.5,
-        id: notes.length + 1,
+        id: `${notes.length + 1}`,
       }
-      setNotes(notes.concat(noteObject))
-      setNewNote('')
+
+      noteService
+      .create(noteObject)
+        .then(returnedNote => {
+        setNotes(notes.concat(returnedNote))
+        setNewNote('')
+      })
 
    }
 
    function handleNoteChange(e){
     e.preventDefault();
     setNewNote(e.target.value)
+   }
+   function toggleImportance(id){
+    console.log(id)
+     const url = `http://localhost:3001/notes/${id}`
+     const note = notes.find(n=> n.id === id)
+     const changedNote = {...note, important: !note.important}
+
+     noteService
+     .update(id, changedNote)
+       .then(returnedNote => {
+       setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+     })
+     .catch(error => {
+       alert(
+         `the note '${note.content}' was already deleted from server`
+       )
+       setNotes(notes.filter(n => n.id !== id))
+     })
+
    }
 
    return(
@@ -315,7 +361,8 @@ const AppPart2a = (props)=>{
 
       
       {notesToShow.map(note => (
-        <li key={note.id}>{note.content}</li>
+        <Note note={note}  toggleImportance={()=>toggleImportance(note.id)} />
+        // <li key={note.id}>{note.content}</li>
       ))}
 
       <form onSubmit={addNote}>
@@ -326,6 +373,9 @@ const AppPart2a = (props)=>{
    )
 
 }
+// ________________________________________________________________ //
+
+// Phonebook exercise //
 
 const Display= ({users})=>{
 
@@ -333,7 +383,7 @@ const Display= ({users})=>{
      <div>
        {users.map(user => (
 
-        <li key={user.id}>{user.name } : {user.phoneNum}</li>
+        <li key={user.id}>{user.name } : {user.number}</li>
        ))}
      </div>
   )
@@ -349,7 +399,7 @@ const AddNewUser =({users, setUsers})=>{
     e.preventDefault();
     const newUserObject = {
       name: newUser, 
-      phoneNum: newUserPhone,
+      number: newUserPhone,
       id : users.length + 1,
 
     }
@@ -388,9 +438,18 @@ const AddNewUser =({users, setUsers})=>{
 
 }
 
-const App =()=>{
-  const [users, setUsers] = useState([{name:"sagar", phoneNum:'8864973891', id:1}]);
+
+const Appaaa=()=>{
+  const [users, setUsers] = useState([]);
   const [filterText, setFliterText] = useState('')
+
+  useEffect(()=>{
+    axios
+      .get('http://localhost:3011/persons')
+      .then(response =>{
+        setUsers(response.data)
+      })
+  }, [])
   
   function handleChange(e){
     e.preventDefault()
@@ -411,6 +470,44 @@ const App =()=>{
     </>
   )
 
+
+}
+
+
+const App =()=>{
+  const fetchData = async () => {
+
+    const options = {
+      method: 'GET',
+      url: 'https://online-movie-database.p.rapidapi.com/v2/search',
+      params: {
+        searchTerm: 'tom cruise',
+        type: 'NAME',
+        first: '20',
+        country: 'US',
+        language: 'en-US'
+      },
+      headers: {
+        'x-rapidapi-key': 'bfed652808msha0c0c74ee41f06ap1b77e0jsn406bfbd25757',
+        'x-rapidapi-host': 'online-movie-database.p.rapidapi.com'
+      }
+    };
+    
+    try {
+      const response = await axios.request(options);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+};
+
+// Call the async function
+fetchData();
+  return(
+    <div>
+      heyyy
+    </div>
+  )
 }
 
 
