@@ -291,7 +291,7 @@ const Note =({note, toggleImportance})=>{
   )
 }
 
-const Appaaaa = ()=>{
+const App = ()=>{
    const [notes , setNotes] = useState([])
 
    const [newNote, setNewNote] = useState('a new Note')
@@ -474,41 +474,8 @@ const Appaaa=()=>{
 }
 
 
-const App =()=>{
-  const fetchData = async () => {
 
-    const options = {
-      method: 'GET',
-      url: 'https://online-movie-database.p.rapidapi.com/v2/search',
-      params: {
-        searchTerm: 'tom cruise',
-        type: 'NAME',
-        first: '20',
-        country: 'US',
-        language: 'en-US'
-      },
-      headers: {
-        'x-rapidapi-key': 'bfed652808msha0c0c74ee41f06ap1b77e0jsn406bfbd25757',
-        'x-rapidapi-host': 'online-movie-database.p.rapidapi.com'
-      }
-    };
-    
-    try {
-      const response = await axios.request(options);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-};
 
-// Call the async function
-fetchData();
-  return(
-    <div>
-      heyyy
-    </div>
-  )
-}
 
 
 

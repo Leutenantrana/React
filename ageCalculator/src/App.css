@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+#date::-webkit-inner-spin-button::before,
+#date::-webkit-inner-spin-button::after {
+    background-color: #f00;
+    /* Set your desired color */
+    color: #fff;
+    /* Set your desired text color */
+}
+
+p {
+    font-family: 'Lobster', sans-serif;
+}

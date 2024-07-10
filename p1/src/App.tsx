@@ -9,7 +9,7 @@ import Country from './components/Country'
 
 function App() {
   const [data , setData] = useState([])
-  const [searchTerm , setSearchTerm] = useState('')
+  const [searchTerm , setSearchTerm] = useState(' ')
 
   const url =  `https://studies.cs.helsinki.fi/restcountries/api/all`
   useEffect(()=>{
@@ -29,7 +29,7 @@ function App() {
   return (
     <>
       <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      { countriestoshow.length > 10 ? <h2>Too many matches, specify another filters</h2>: 
+      { countriestoshow.length > 100 ? <h2>Too many matches, specify another filters</h2>: 
        <div className='container'>
           {countriestoshow.map(country => (
             <Country country={country} />
