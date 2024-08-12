@@ -1,0 +1,23 @@
+.inputField {
+    height: 35px;
+    width: 220px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.inputField:hover {
+    border-color: blue;
+    background-color: #eef;
+}
+
+
+/* Clicked styling */
+
+.inputField.clicked {
+    border-color: green;
+    background-color: #dff;
+}
+
+.hoveredInput {
+    border: 2px solid red;
+}

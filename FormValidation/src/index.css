@@ -1,0 +1,19 @@
+body {
+    width: 100vw;
+    /* Set width to 100% of the viewport width */
+    height: 100vh;
+    /* Set height to 100% of the viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#root {
+    width: 100vw;
+    /* Set width to 100% of the viewport width */
+    height: 100vh;
+    /* Set height to 100% of the viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
