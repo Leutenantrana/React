@@ -33,6 +33,7 @@ body {
 
 .hide {
     display: none;
+    height: 0;
 }
 
 .date,
@@ -120,6 +121,11 @@ body {
     background: transparent;
     border: none;
     transition: all 0.3s ease-in-out;
+}
+
+.taskInfo {
+    height: auto;
+    transition: height 0.9 ease;
 }
 
 .taskInfo .date {

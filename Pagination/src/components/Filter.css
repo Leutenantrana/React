@@ -1,0 +1,31 @@
+.filterMain {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filterMain button {
+    font-size: 12px;
+    padding: 5px;
+    margin: 5px;
+    font-weight: 300;
+}
+
+.filterMain button:hover {
+    background-color: transparent;
+    transform: scale(1.04);
+}
+
+.form {
+    display: flex;
+    margin-left: 10px;
+}
+
+@media only screen and (max-width: 838px) {
+    .filterMain {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+}

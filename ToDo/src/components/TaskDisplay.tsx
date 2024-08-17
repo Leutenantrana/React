@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import helper from '../helperFunctions/index'
-const TaskDisplay = ({task, setTasks}) => {
+const TaskDisplay = ({task, setTasks,isOpen, onClick}) => {
     const [checked, setChecked] = useState(false)
-    const [visible, setVisible] = useState(false)
-
+    // seting checkBox value
     useEffect(()=>{
         if(task.status === 'complete'){
             setChecked(true)
@@ -11,10 +10,7 @@ const TaskDisplay = ({task, setTasks}) => {
             setChecked(false)
         }
     },[task])
-    const handleClick =(e)=>{
-      e.preventDefault()
-      setVisible(!visible)
-    }
+    // updating the task 
     const handleChange =(id)=>{
       console.log(id)
       const tasks = helper.updateData(id)
@@ -23,6 +19,7 @@ const TaskDisplay = ({task, setTasks}) => {
       setTasks(tasks)
 
     }
+    // Deleting the task
     const handleDelete =(id)=>{
         const tasks = helper.deleteData(id);
         setTasks(tasks)
@@ -34,9 +31,10 @@ const TaskDisplay = ({task, setTasks}) => {
         <div className='taskHeader'>
                 <h2 className="taskTitle">{task.task}</h2>
                 <p className="hl show"> {task.status}</p>
-                <button onClick={handleClick} className="dropDownBtn">🔽</button>
+                <button onClick={onClick} className="dropDownBtn">🔽</button>
         </div>
-            <div className={`taskInfo ${visible ? '': 'hide'}`}>
+           
+            <div className={`taskInfo ${isOpen ? '': 'hide'}`}>
                 <div className="date">
                     <p>Starting Date <span className="startingDate">{task.startDate}</span></p>
                     <p>Last Date <span className="endDate">{task.endDate}</span></p>
