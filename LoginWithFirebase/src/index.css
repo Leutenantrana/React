@@ -1,0 +1,34 @@
+html,
+body {
+    height: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginForm {
+    background-color: rgb(238, 255, 255);
+    height: 300px;
+    width: 250px;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginForm input {
+    width: 200px;
+    padding: 5px;
+}
+
+.btnContainer {
+    margin-top: 30px;
+}
+
+.btnContainer button {
+    background-color: transparent;
+    border: 1px solid black;
+}
